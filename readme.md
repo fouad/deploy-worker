@@ -10,12 +10,11 @@
 <br/>
 
 <p align="center">
-  <a href="https://unpkg.com/deploy-worker@^0.1/lib/index.js"><img src="https://img.badgesize.io/https://unpkg.com/deploy-worker@^0.1/lib/index.js?compression=gzip&amp;label=deploy--worker"></a>
   <a href="https://www.npmjs.com/package/deploy-worker"><img src="https://img.shields.io/npm/v/deploy-worker.svg?maxAge=3600&label=deploy-worker&colorB=007ec6"></a>
 </p>
 <br/>
 
-```shell
+```console
 deploy-worker --zone-id {zone-id} worker.js
 ```
 
@@ -68,7 +67,7 @@ addEventListener(event => {
 
 Make sure your dependencies are installed, then run `deploy-worker` like this:
 
-```shell
+```console
 deploy-worker --zone-id {zone-id} worker.js
 ```
 
