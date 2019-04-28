@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "trustless-worker": "^0.0.4"
+  }
+}

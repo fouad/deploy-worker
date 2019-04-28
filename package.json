@@ -1,0 +1,20 @@
+{
+  "name": "deploy-worker",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Fouad Matin <m@fouad.org>",
+  "bin": {
+    "deploy-worker": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fouad/deploy-worker.git"
+  },
+  "dependencies": {
+    "@zeit/ncc": "^0.18.1",
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "node-fetch": "^2.4.1"
+  }
+}
