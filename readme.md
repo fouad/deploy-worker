@@ -38,6 +38,11 @@ You need to pass in `CF_EMAIL` and `CF_AUTH_Key` as environment variables and th
 
 #### Usage
 
+**Requirements**
+
+- Cloudflare Account
+- [Cloudflare Auth Key](https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key-) and [Zone ID](https://developers.cloudflare.com/workers/api/#zone-id)
+
 Create a `package.json` to install modules you're using:
 
 ```js
@@ -52,14 +57,14 @@ Create a `package.json` to install modules you're using:
 Then create your `.js` or `.ts` file, like `worker.js`:
 
 ```js
-import qs from 'qs'
+import { parse } from 'qs'
 import { get as getEmoji } from 'node-emoji'
 
-addEventListener(event => {
+addEventListener('fetch', event => {
   let { request } = event
-  let query = qs(request.url.split('?')[1] || '')
-  let qsEmoji = query.get('emoji')
-  let emoji = getEmoji(qsEmoji || 'star')
+  let query = parse(request.url.split('?')[1] || '')
+  let qsEmoji = query.emoji || 'star'
+  let emoji = getEmoji(qsEmoji)
 
   event.respondWith(new Response(emoji))
 })
