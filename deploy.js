@@ -1,9 +1,10 @@
 const fetch = require('node-fetch')
-
+const { wait, success, error } = require('./stdout')
 const cfHost = 'https://api.cloudflare.com/client/v4'
 
 module.exports = function deploy(input) {
   let { code, zoneId, accountId, email, authKey } = input
+  let stop = wait(`Deploying to Cloudflare zone (${zoneId})`)
 
   return fetch(`${cfHost}/zones/${zoneId}/workers/script`, {
     method: 'PUT',
@@ -17,9 +18,13 @@ module.exports = function deploy(input) {
     .then(async res => {
       let { status } = res
 
+      stop()
+
       if (status >= 400) {
-        console.log('\n cloudflare api error:')
+        error(`Cloudflare zone (${zoneId}) update failed`)
         console.log(await res.text())
+      } else if (status === 200) {
+        success(`Cloudflare zone (${zoneId}) updated`)
       }
 
       return { status }

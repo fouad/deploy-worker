@@ -5,6 +5,7 @@ const chalk = require('chalk')
 const program = require('commander')
 const package = require('./package.json')
 const messages = require('./messages')
+const { error } = require('./stdout')
 const deploy = require('./deploy')
 const build = require('./build')
 
@@ -54,14 +55,30 @@ if (missingParams.length > 0) {
   process.exit(1)
 }
 
-console.log({ zoneId, accountId, filePath })
+let info = [
+  `${chalk.bold('Zone')}: ${zoneId}`,
+  accountId && `${chalk.bold('Account')}: ${accountId}\n`,
+  `${chalk.bold('File')}: ${filePath}`
+]
+  .filter(Boolean)
+  .map(s => '  ' + s)
+  .join('\n')
+
+console.log(`
+  🌤 ${chalk.bold('deploy-worker')}
+
+${info}
+`)
 
 if (program.skipBuild) {
   deploy({ ...deployInput, filePath })
 } else {
-  build({ filePath }).then(({ code }) => {
-    deploy({ ...deployInput, code }).then(({ status }) => {
-      console.log('cloudflare api result:', status)
+  build({ filePath })
+    .catch(err => {
+      error(err)
+      process.exit(1)
     })
-  })
+    .then(({ code }) => {
+      deploy({ ...deployInput, code })
+    })
 }

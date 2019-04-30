@@ -1,6 +1,6 @@
 {
   "name": "deploy-worker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "license": "MIT",
   "author": "Fouad Matin <m@fouad.org>",
@@ -13,8 +13,12 @@
   },
   "dependencies": {
     "@zeit/ncc": "^0.18.1",
+    "ansi-escapes": "^4.1.0",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
-    "node-fetch": "^2.4.1"
+    "ms": "^2.1.1",
+    "node-fetch": "^2.4.1",
+    "ora": "^3.4.0",
+    "promise": "^8.0.3"
   }
 }
